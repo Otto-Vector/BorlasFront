@@ -16,6 +16,14 @@ export const PostsPage: React.FC = () => {
         dispatch(fetchPosts())
     }, [dispatch])
 
+    useEffect(() => {
+        console.log("posts list updated")
+    }, [posts])
+
+    useEffect(() => {
+        console.log("я запустился один раз")
+    }, [])
+
     const handleUpdatePost = async (postData: CreatePostRequest) => {
         if (editingPost) {
             await dispatch(updatePost({id: editingPost.id, postData}))
