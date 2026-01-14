@@ -1,7 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-import {Provider} from 'react-redux'
-import {store} from './store'
+import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom'
 import {Sidebar} from './components/Sidebar/Sidebar'
 import {PostsPage} from './pages/PostsPage/PostsPage'
 import {CreatePostPage} from './pages/CreatePostPage/CreatePostPage'
@@ -9,53 +7,39 @@ import {MyPostsPage} from './pages/MyPostsPage/MyPostsPage'
 import {DeletedPostsPage} from './pages/DeletedPostsPage/DeletedPostsPage'
 import {setAuthToken} from "./api/axios"
 import './App.scss'
-import {Button} from "./components/button/Button"
-import {TextButton} from "./components/TextButton/TextButton"
-import {ButtonTheme, TextButtonTheme} from "./types/BtnThemeEnum"
+import {AppRoutes} from "./default-config/appRoutes"
+import {TestViewPage} from "./components/TestViewPage/TestViewPage"
+import {useAppSelector} from "./store/hooks"
 
-function App() {
-    setAuthToken("testuser1", "yourpassword")
 
-    const onClickBtn = () => {
-        // alert("Кнопка нажата")
-        console.log("Кнопка нажата")
-    }
-
-    const onClickTxtBtn = () => {
-        // alert("Кнопка коммента нажата")
-        console.log("Кнопка коммента нажата")
-    }
+export default function App() {
+    // const selector = userSelectors.selectAuthUser
+    // const authUser2 = useSelector(selector)
+    const {authUser} = useAppSelector(state => state.users)
+    // const authUser = {name: 'testUser1', password: 'yourpassword'}
+    setAuthToken(authUser)
+    // const isAuth = useSelector(selectIsAuth)
+    const isAuth = true
 
     return (
-        <Provider store={store}>
-            <Router>
-                <div className="App">
-                    <Sidebar/>
-                    <main className="App__main">
-                        <Routes>
-                            <Route path="/" element={<PostsPage/>}/>
-                            <Route path="/posts" element={<PostsPage/>}/>
-                            <Route path="/create" element={<CreatePostPage/>}/>
-                            <Route path="/my-posts" element={<MyPostsPage/>}/>
-                            <Route path="/deleted" element={<DeletedPostsPage/>}/>
-                            <Route path="/testView" element={
-                                <div style={{padding: "100px", display: "flex", flexDirection: "column", gap: "15px"}}>
-                                    <Button text={"Button Primary"} onClick={onClickBtn}/>
-                                    <Button text={"Button Primary disabled"} onClick={onClickBtn} isDisabled={true}/>
-                                    <Button text={"Button Soft"} onClick={onClickBtn} theme={ButtonTheme.Soft}/>
-                                    <Button text={"Button Soft disabled"} onClick={onClickBtn} theme={ButtonTheme.Soft}
-                                            isDisabled={true}/>
-                                    <TextButton text={"Комментировать"} onClick={onClickTxtBtn} theme={TextButtonTheme.Primary}/>
-                                    <TextButton text={"Комментировать"} onClick={onClickTxtBtn} theme={TextButtonTheme.Primary} isDisabled={true}/>
-                                    <TextButton text={"Комментировать"} onClick={onClickTxtBtn} theme={TextButtonTheme.Soft}/>
-                                    <TextButton text={"Комментировать"} onClick={onClickTxtBtn} theme={TextButtonTheme.Soft} isDisabled={true}/>
-                                </div>}/>
-                        </Routes>
-                    </main>
-                </div>
-            </Router>
-        </Provider>
+        <Router>
+            <div className="App" key={authUser.name}>
+                <Sidebar/>
+                <main className="App__main">
+                    <Routes>
+                        <Route path={AppRoutes.defaultPage}
+                               element={
+                                   <Navigate to={isAuth ? AppRoutes.myPostsPage : AppRoutes.loginPage}/>
+                               }
+                        />
+                        <Route path={AppRoutes.postsPage} element={<PostsPage/>}/>
+                        <Route path={AppRoutes.createPostPage} element={<CreatePostPage/>}/>
+                        <Route path={AppRoutes.myPostsPage} element={<MyPostsPage/>}/>
+                        <Route path={AppRoutes.deletedPostsPage} element={<DeletedPostsPage/>}/>
+                        <Route path={AppRoutes.testViewPage} element={<TestViewPage/>}/>
+                    </Routes>
+                </main>
+            </div>
+        </Router>
     )
 }
-
-export default App

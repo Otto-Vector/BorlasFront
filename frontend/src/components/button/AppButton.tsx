@@ -9,7 +9,7 @@ interface ButtonProps {
     isDisabled?: boolean
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const AppButton: React.FC<ButtonProps> = ({
                                                   text,
                                                   onClick,
                                                   theme = ButtonTheme.Primary,

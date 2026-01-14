@@ -155,7 +155,7 @@ const postsSlice = createSlice({
         state.error = action.error.message || 'Ошибка удаления поста';
       });
   },
-});
+})
 
-export const { clearError, clearPosts } = postsSlice.actions;
-export default postsSlice.reducer;
+export const { clearError, clearPosts } = postsSlice.actions
+export default postsSlice.reducer

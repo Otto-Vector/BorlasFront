@@ -1,4 +1,4 @@
-@mixin mixin-text-button {
+.text-button {
   // ширина
   width: fit-content;
   // текст
@@ -24,13 +24,14 @@
     cursor: default;
     text-decoration: none;
     // фиксируем bottom, когда кнопка выбрана
-    &:before{
+    &:before {
       width: 100%;
       border-top: 1.5px solid #000DFF;
     }
   }
 
   position: relative;
+
   &:before {
     position: absolute;
     content: "";
@@ -40,9 +41,11 @@
     border-top: 1.5px solid black;
     transition: width ease .5s;
   }
+
   &:hover {
     text-decoration: none;
   }
+
   &:hover:before {
     width: 100%;
   }
@@ -52,7 +55,7 @@
     cursor: not-allowed;
     text-decoration: none;
     // отключаем bottom в состоянии disabled
-    &:before{
+    &:before {
       display: none;
     }
   }
@@ -61,8 +64,9 @@
     color: black;
   }
 
-  &_soft{
+  &_soft {
     color: red;
+
     &:before {
       position: absolute;
       content: "";
@@ -72,16 +76,14 @@
       border-top: 1.5px solid red;
       transition: width ease .5s;
     }
+
     &:hover {
       text-decoration: none;
     }
+
     &:hover:before {
       width: 100%;
     }
   }
 
-}
-
-.text-button {
-  @include mixin-text-button
 }

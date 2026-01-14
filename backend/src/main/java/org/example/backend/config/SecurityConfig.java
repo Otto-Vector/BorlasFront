@@ -27,6 +27,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
+//                .httpBasic(AbstractHttpConfigurer::disable)
                 .userDetailsService(userDetailsService);
 
         return http.build();

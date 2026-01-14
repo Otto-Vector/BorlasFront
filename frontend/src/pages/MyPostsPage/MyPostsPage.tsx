@@ -1,22 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import {useAppDispatch, useAppSelector} from '../../store/hooks'
-import {fetchUserActivePosts, updatePost, deletePost, clearPosts} from '../../store/slices/postsSlice'
+import {clearPosts, deletePost, fetchUserActivePosts, updatePost} from '../../store/slices/postsSlice'
 import {PostCard} from '../../components/PostCard/PostCard'
 import {PostForm} from '../../components/PostForm/PostForm'
-import {Post, CreatePostRequest} from '../../api/postsApi'
+import {CreatePostRequest, Post} from '../../api/postsApi'
 import './MyPostsPage.scss'
+import {setUser} from "../../store/slices/activeUserSlice"
 
 export const MyPostsPage: React.FC = () => {
     const dispatch = useAppDispatch()
     const {posts, isLoading, error} = useAppSelector(state => state.posts)
 
     const [editingPost, setEditingPost] = useState<Post | null>(null)
-    const [username, setUsername] = useState('testuser') // Можно сделать настраиваемым
-
-    useEffect(() => {
-        dispatch(clearPosts())
-        dispatch(fetchUserActivePosts(username))
-    }, [dispatch, username])
+    const {selectedUser} = useAppSelector(state => state.users)
+    const [username, setUsername] = useState(selectedUser.name)
 
     const handleUpdatePost = async (postData: CreatePostRequest) => {
         if (editingPost) {
@@ -47,8 +44,13 @@ export const MyPostsPage: React.FC = () => {
         if (username.trim()) {
             dispatch(clearPosts())
             dispatch(fetchUserActivePosts(username.trim()))
+            dispatch(setUser({name: username, password: null}))
         }
     }
+
+    useEffect(() => {
+        handleLoadPosts()
+    }, [])
 
     if (isLoading && posts.length === 0) {
         return (

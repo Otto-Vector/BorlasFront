@@ -1,24 +1,24 @@
-import React from 'react';
-import type {FormProps} from 'antd';
-import {Button, Checkbox, Form, Input} from 'antd';
+import React from 'react'
+import type {FormProps} from 'antd'
+import {Button, Checkbox, Form, Input} from 'antd'
 
 type FieldType = {
-    username?: string;
-    password?: string;
-    remember?: string;
-};
+    username?: string
+    password?: string
+    remember?: string
+}
 
 const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
-};
+    console.log('Success:', values)
+}
 
 const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
+    console.log('Failed:', errorInfo)
+}
 
-const AntForm: React.FC = () => (
+export const AntForm: React.FC = () => (
     <Form
-        name="basic"
+        name="basic-login"
         labelCol={{span: 8}}
         wrapperCol={{span: 16}}
         style={{maxWidth: 600}}
@@ -53,6 +53,4 @@ const AntForm: React.FC = () => (
             </Button>
         </Form.Item>
     </Form>
-);
-
-export default AntForm;
+)

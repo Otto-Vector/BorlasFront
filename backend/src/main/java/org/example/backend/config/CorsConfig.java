@@ -9,8 +9,11 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")  // Для фронтенда на React
-                .allowedMethods("*");
+                .allowedOrigins("http://localhost:3000","http://localhost:8080","http://localhost:5173")  // Для фронтенда на React
+                .allowedHeaders("*")
+                .allowCredentials(false)
+                .maxAge(3600)
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
     }
 }
 

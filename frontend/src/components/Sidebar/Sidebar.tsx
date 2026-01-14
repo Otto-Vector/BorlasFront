@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './Sidebar.scss'
-import { items } from './SideItems' // импортируем список
+import { items } from '../../default-config/side-items' // импортируем список
 
 interface SidebarItemProps {
     to: string

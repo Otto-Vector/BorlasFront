@@ -4,7 +4,7 @@
 export const spreadStyles = ( object: { [key: string]: boolean } ): string => {
     let stringToReturn = ''
     for (const key in object) {
-        if (object.hasOwnProperty(key) && object[key]) {
+        if (Object.prototype.hasOwnProperty.call(object, key) && object[key]) {
             stringToReturn += `${ key } `
         }
     }

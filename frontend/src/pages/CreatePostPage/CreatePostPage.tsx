@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from '../../store/hooks'
 import {createPost} from '../../store/slices/postsSlice'
 import {PostForm} from '../../components/PostForm/PostForm'
 import {CreatePostRequest} from '../../api/postsApi'
+import {AppRoutes} from "../../default-config/appRoutes"
 import './CreatePostPage.scss'
 
 export const CreatePostPage: React.FC = () => {
@@ -14,12 +15,12 @@ export const CreatePostPage: React.FC = () => {
     const handleCreatePost = async (postData: CreatePostRequest) => {
         const result = await dispatch(createPost(postData))
         if (createPost.fulfilled.match(result)) {
-            navigate('/')
+            navigate(AppRoutes.myPostsPage)
         }
     }
 
     const handleCancel = () => {
-        navigate('/')
+        navigate(AppRoutes.myPostsPage)
     }
 
     return (

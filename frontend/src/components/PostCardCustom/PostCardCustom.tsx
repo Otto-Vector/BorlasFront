@@ -3,7 +3,7 @@ import {Post} from '../../api/postsApi'
 import './PostCardCustom.scss'
 import {formatDate} from "../../utils/dateUtil"
 import {TextButton} from "../TextButton/TextButton"
-import {Button} from "../button/Button"
+import {AppButton} from "../button/AppButton"
 
 interface PostCardProps {
     post: Post;
@@ -44,7 +44,7 @@ export const PostCardCustom: React.FC<PostCardProps> = ({post, onEdit, onDelete}
                     />
                     }
                     {onDelete && (
-                        <Button
+                        <AppButton
                             text={"Удалить"}
                             onClick={() => onDelete(post.id)}
                         />

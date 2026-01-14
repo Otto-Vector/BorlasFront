@@ -3,17 +3,13 @@ import {useAppDispatch, useAppSelector} from '../../store/hooks'
 import {clearPosts, fetchUserDeletedPosts} from '../../store/slices/postsSlice'
 import {PostCard} from '../../components/PostCard/PostCard'
 import './DeletedPostsPage.scss'
+import {setUser} from "../../store/slices/activeUserSlice"
 
 export const DeletedPostsPage: React.FC = () => {
     const dispatch = useAppDispatch()
     const {posts, isLoading, error} = useAppSelector(state => state.posts)
-
-    const [username, setUsername] = useState('testuser')
-
-    useEffect(() => {
-        dispatch(clearPosts())
-        dispatch(fetchUserDeletedPosts(username))
-    }, [dispatch, username])
+    const {selectedUser} = useAppSelector(state => state.users)
+    const [username, setUsername] = useState(selectedUser.name)
 
     const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value)
@@ -23,8 +19,13 @@ export const DeletedPostsPage: React.FC = () => {
         if (username.trim()) {
             dispatch(clearPosts())
             dispatch(fetchUserDeletedPosts(username.trim()))
+            dispatch(setUser({name: username, password: null}))
         }
     }
+
+    useEffect(() => {
+        handleLoadPosts()
+    }, [])
 
     if (isLoading && posts.length === 0) {
         return (

@@ -4,7 +4,7 @@ import {TextButtonTheme} from "../../types/BtnThemeEnum"
 
 interface TextButtonProps {
     text: string
-    onClick: (e:any) => void
+    onClick: (e: unknown) => void
     theme?: TextButtonTheme
     isDisabled?: boolean
 }
@@ -15,8 +15,8 @@ export const TextButton: React.FC<TextButtonProps> = (props) => {
 
     return (
         <button className={"text-button text-button_" + theme}
-            onClick={onClick}
-            disabled={isDisabled}
+                onClick={onClick}
+                disabled={isDisabled}
         >
             {text}
         </button>

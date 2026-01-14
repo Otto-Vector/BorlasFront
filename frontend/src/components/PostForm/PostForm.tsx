@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react'
+import React, {useState, useCallback} from 'react'
 import {Post, CreatePostRequest} from '../../api/postsApi'
 import './PostForm.scss'
 
@@ -18,12 +18,12 @@ export const PostForm: React.FC<PostFormProps> = ({
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
 
-    useEffect(() => {
-        if (post) {
-            setTitle(post.title)
-            setContent(post.content)
-        }
-    }, [post])
+    // useEffect(() => {
+    //     if (post?.title) {
+    //         setTitle(post.title)
+    //         setContent(post.content)
+    //     }
+    // }, [post])
 
     const handleSubmit = useCallback((e: React.FormEvent) => {
         e.preventDefault()
