@@ -13,8 +13,8 @@ export const PostsPage: React.FC = () => {
     const [editingPost, setEditingPost] = useState<Post | null>(null)
 
     useEffect(() => {
-        dispatch(fetchPosts())
-    }, [dispatch])
+        if (!editingPost) dispatch(fetchPosts())
+    }, [dispatch, editingPost])
 
     useEffect(() => {
         console.log("posts list updated")

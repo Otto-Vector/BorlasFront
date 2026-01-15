@@ -15,9 +15,17 @@ export const PostForm: React.FC<PostFormProps> = ({
                                                       onCancel,
                                                       isLoading = false
                                                   }) => {
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
-
+    const [title, setTitle] = useState(post?.title ?? '')
+    const [content, setContent] = useState(post?.content ?? '')
+    /**
+    * почему я венул этот useEffect в комментарий? потому что esLint подчёркивал ошибку,
+     * которая говорила о том, что хук useEffect не должен (не рекомендуется) изменять стейт,
+     * особенно тот от которого он зависит, ибо это может привести к бесконечному зацикливанию перерисовки компонент(а|ы)
+     *
+     * а так как данный хук в конкретном случае просто заполнял изначальные данные в инпуты,
+     * то с этим прекрасно справляется изначальная useState (выше ☝️) инициализация, которая срабатывает при первой отрисовке
+     * (и также была добавлена проверка на null|undefined по паттернам TypeScript)
+    * */
     // useEffect(() => {
     //     if (post?.title) {
     //         setTitle(post.title)
@@ -39,7 +47,7 @@ export const PostForm: React.FC<PostFormProps> = ({
             <form onSubmit={handleSubmit} className="post-form__form">
                 <div className="post-form__field">
                     <label htmlFor="title" className="post-form__label">
-                        Заголовок
+                        {"Заголовок"}
                     </label>
                     <input
                         id="title"
